@@ -46,3 +46,28 @@ tr:hover {
 td {
   padding: 1rem;
 }
+
+.btn-container {
+  margin: auto;
+  width: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.btn-container button {
+  border: none;
+  padding: 0.5rem 1rem;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-container button:disabled {
+  cursor: not-allowed;
+  background-color: rgb(229, 229, 229);
+  color: rgba(0, 0, 0, 0.269);
+}

@@ -95,7 +95,7 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     </tbody>
 ```
 
-**5.Add pugings in useTable() for Sorting**
+**5.Add useSortBy in useTable() for Sorting**
 
 ```
 import { useSortBy, useTable } from "react-table";
@@ -116,3 +116,19 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
       )}
 </th>
 ```
+
+**5.Add usePagination in useTable() for Pagination**
+
+```
+
+```
+
+- Instead of `rows` destructure `page`
+  **Destructure:**
+- `nextPage` and `previousPage`
+- `canPreviousPage` and `canNextPage` for disabled buttons
+- `state:{pageIndex}` and `pageCount` for showing the current page state and total number of page
+- `gotoPage` to go on a particular page
+- Be default, it shows 10 rows per page
+- add `initialState: { pageSize: 5 }` in useTable() to show 5 rows per page
+- In initialState we can also add initial pageIndex

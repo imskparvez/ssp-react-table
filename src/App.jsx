@@ -1,10 +1,14 @@
-import { useSortBy, useTable } from "react-table";
+import { usePagination, useSortBy, useTable } from "react-table";
 import { data } from "./utils/data";
 
 const columns = [
   {
     Header: "ID",
     accessor: "id",
+  },
+  {
+    Header: "Name",
+    accessor: "name",
   },
   {
     Header: "Gender",
@@ -17,14 +21,28 @@ const columns = [
 ];
 
 const App = () => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable(
-      {
-        columns,
-        data,
-      },
-      useSortBy
-    );
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    prepareRow,
+    nextPage,
+    previousPage,
+    canPreviousPage,
+    canNextPage,
+    state: { pageIndex },
+    pageCount,
+    gotoPage,
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: { pageSize: 15, pageIndex: 2 },
+    },
+    useSortBy,
+    usePagination
+  );
 
   return (
     <div className="container">
@@ -45,7 +63,7 @@ const App = () => {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {page.map((row) => {
             prepareRow(row);
 
             return (
@@ -58,6 +76,30 @@ const App = () => {
           })}
         </tbody>
       </table>
+      <div className="btn-container">
+        <button disabled={pageIndex === 0} onClick={() => gotoPage(0)}>
+          First
+        </button>
+
+        <button disabled={!canPreviousPage} onClick={previousPage}>
+          Prev
+        </button>
+
+        <span>
+          {pageIndex + 1} of {pageCount}
+        </span>
+
+        <button disabled={!canNextPage} onClick={nextPage}>
+          Next
+        </button>
+
+        <button
+          disabled={pageIndex >= pageCount - 1}
+          onClick={() => gotoPage(pageCount - 1)}
+        >
+          Last
+        </button>
+      </div>
     </div>
   );
 };

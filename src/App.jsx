@@ -1,4 +1,4 @@
-import { useTable } from "react-table";
+import { useSortBy, useTable } from "react-table";
 import { data } from "./utils/data";
 
 const columns = [
@@ -18,10 +18,13 @@ const columns = [
 
 const App = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
-      columns,
-      data,
-    });
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useSortBy
+    );
 
   return (
     <div className="container">
@@ -30,7 +33,12 @@ const App = () => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  {column.render("Header")}
+                  {column.isSorted && (
+                    <span>{column.isSortedDesc ? " 🔽" : " 🔼"}</span>
+                  )}
+                </th>
               ))}
             </tr>
           ))}

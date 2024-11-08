@@ -94,3 +94,25 @@ const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     })}
     </tbody>
 ```
+
+**5.Add pugings in useTable() for Sorting**
+
+```
+import { useSortBy, useTable } from "react-table";
+
+const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable(
+      {
+        columns,
+        data,
+      },
+      useSortBy
+    );
+
+<th {...column.getHeaderProps(column.getSortByToggleProps())}>
+      {column.render("Header")}
+      {column.isSorted && (
+        <span>{column.isSortedDesc ? " 🔽" : " 🔼"}</span>
+      )}
+</th>
+```
